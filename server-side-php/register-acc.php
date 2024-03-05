@@ -1,17 +1,14 @@
-<?php include('./conn.php'); ?>
-<?php include('../conf.php'); ?>
-<?php include('errors-register-acc.php'); ?>
+<?php include('./conn.php'); // database conection var $conn and session_start()  ?>
+<?php include('../conf.php'); // password $pepper ?>
+<?php include('errors-register-acc.php'); // errors handling array ?>
 <?php
-
-// this file ads a new user to the database
-
 
 // form entries initialization
 $new_username = "";
 $new_email = "";
 
 
-if (isset($_POST['reg_user'])) {
+if (isset($_POST['reg_user'])){
 
 	//get username and email
 	$new_username = isset($_POST['new_username']);
@@ -69,26 +66,16 @@ if (isset($_POST['reg_user'])) {
 		$password_peppered = hash_hmac("sha256", $new_password1, $pepper);
 		$password_hashed = password_hash($pwd_peppered, PASSWORD_ARGON2ID);
 
-	}
-
-	// Finally, register user if there are no errors in the form
-	if (count($errors) == 0) {
+		// prepare and execute query
+		$register_user = $conn->prepare("INSERT INTO users (username, pass, email, creationDate, uRank) VALUES(:new_username, :password_hashed, :new_email, NOW(), 0");
+		$register_user->execute(['new_username' => $new_username, 'password_hashed' => $password_hashed, 'new_email' => $new_email]);
 		
-		$options = [
-			'cost' => 10
-		];
-
-		$password = password_hash($password_1, PASSWORD_BCRYPT, $options);
-
-		$query = "INSERT INTO users (username, pass, email, creationDate, uRank) 
-					VALUES('$username', '$password', '$email', NOW(), 0)";
-		mysqli_query($db, $query);
-		$_SESSION['username'] = $username;
-		$_SESSION['success'] = "You are now logged in";
+		// login and send user to homepage
+		$_SESSION['username'] = $new_username;
+		$_SESSION['success'] = "You're logged in!";
 		header('location: index.php');
+
 	}
-
-
 }
 
 ?>

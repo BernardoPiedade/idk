@@ -2,7 +2,7 @@
 
 session_start();
 
-// this file serves only to call the connection to the database with "pdo"
+// this file serves only to call the connection to the database with pdo
 
 try {
     $conn = new PDO("mysql:host=localhost;dbname=idk;charset=utf8", "bernas", "bernas", [
