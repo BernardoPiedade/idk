@@ -71,9 +71,3 @@
 			</div>
 		</nav>
 	</header>
-
-<?php if (!isset($_SESSION['username'])): ?>
-	<?php if ($_SERVER['REQUEST_URI'] != "/devuger/login.php"): /* Falta alterar o uri, isso é depois mais para a frente */ ?> 
-		<?php include('templates/logged_in.php'); ?>
-	<?php endif ?>
-<?php endif ?>
