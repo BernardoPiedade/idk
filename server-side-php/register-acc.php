@@ -64,10 +64,12 @@ if (isset($_POST['reg_user'])){
 	if($get_data_user_email){
 		if($get_data_user_email['username'] === $new_username){
 			array_push($errors, "Username already exists");
+			exit();
 		}
 
 		if($get_data_user_email['email'] === $new_email){
 			array_push($errors, "Email already exists");
+			exit();
 		}
 	}
 
@@ -89,17 +91,17 @@ if (isset($_POST['reg_user'])){
 		// prepare and execute query to get the user id
 		$find_user_id = $conn->prepare("SELECT id FROM users WHERE username=:new_username");
 		$find_user_id->execute(['username_entered' => $new_username]);
-		$get_find_user_id = $find_user_id->fetchAll();
+		$get_find_user_id = $find_user_id->fetch();
 
 		// prepare and execute query to add user password to database
 		$register_password = $conn->prepare("INSERT INTO pass (uPass, userId) VALUES (:password_hashed, :user_id)");
-		$register_password->execute(['password_hashed' => $password_hashed, 'user_id' => $get_find_user_id]);
+		$register_password->execute(['password_hashed' => $password_hashed, 'user_id' => $get_find_user_id[0]]);
 		
 		// login and send user to homepage
 		$_SESSION['username'] = $new_username;
 		$_SESSION['success'] = "You're now logged in!";
 		header('location: index.php');
-
+		exit();
 	}
 }
 

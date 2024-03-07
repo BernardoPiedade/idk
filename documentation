@@ -1,0 +1,85 @@
+*******************
+*				  *
+*  Documentation  *
+*				  *
+*******************
+
+
+
+This is more for myself, as a reminder of what everything is doing :P
+And as way to keep things tidy.
+
+
+This is yet to be updated.
+
+
+INDEX
+------------
+1. css folder
+2. img folder
+3. js folder
+4. server-side-php folder
+4.1. errorsHandling folder
+5. sql folder
+6. templates
+7. conf.php
+8. homepage.php
+9. naming-rules
+10. start.sh
+
+
+1. --- cs folder ---
+
+This folder keeps all the css files used in the website.
+
+
+2. --- img folder ---
+
+This folder keeps all the images used in the website.
+
+
+3. --- js folder ---
+
+This folder serves to keep all the javascript files.
+
+
+4. --- server-side-php folder ---
+
+This folder server to keep all the files that work on the backend.
+
+	4.1. --- errorsHandling folder ---
+
+	This folder keeps the files related to user input error.
+	For now it's only for registration and login.
+
+
+5. --- sql folder ---
+
+This folder serves to keep all the files related to the database.
+
+
+6. --- templates ---
+
+This folder contains the website temples for the header, footer, etc...
+
+
+7. --- conf.php ---
+
+File containing the password pepper used during the user registration.
+
+
+8. --- homepage.php ---
+
+Homepage of the website.
+
+
+9. --- naming-rules ---
+
+This text file contains the naming conventions for folders, files, variables, etc...
+
+
+10. --- start.sh ---
+
+This bash file simply starts the php server. I got tired of writing that line
+in the terminal. So you just need to make the file an executable: "chmod +x start.sh".
+And run it by typing: "./start.sh". No root needed!

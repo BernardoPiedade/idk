@@ -1,8 +1,9 @@
 <?php
 
-session_start();
-
 // this file serves only to call the connection to the database with pdo
+// and to start session, since it's going to be needed everywhere.
+
+session_start();
 
 try {
     $conn = new PDO("mysql:host=localhost;dbname=idk;charset=utf8", "bernas", "bernas", [

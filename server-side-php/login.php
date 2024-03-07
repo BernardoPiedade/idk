@@ -31,15 +31,16 @@ if(isset($_POST['login_user'])){
 		// find user id with given username
 		$find_user = $conn->prepare("SELECT id FROM users WHERE username=:username_entered");
 		$find_user->execute(['username_entered' => $username_entered]);
-		$get_find_user = $find_user->fetchAll();
+		$get_find_user = $find_user->fetch();
 
 		// find password hash with given user id
 		$find_pass_hash = $conn->prepare("SELECT uPass FROM pass WHERE userId=:username_id");
-		$find_pass_hash->execute(['username_id' => $get_find_user]);
+		$find_pass_hash->execute(['username_id' => $get_find_user[0]]);
+		$get_find_pass_hash = $find_pass_hash->fetch();
 
 		// verify if the entered password matches with the stored hash
 		// if it matches, the user is logged in and sent to homepage
-		if (password_verify($password_entered, $find_pass_hash)){
+		if (password_verify($password_entered, $get_find_pass_hash[0])){
 			$_SESSION['username'] = $username_entered;
 			$_SESSION['success'] = "You are now logged in!";
 
